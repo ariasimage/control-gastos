@@ -1,51 +1,51 @@
-let saldo = 1000
+let saldo = 1000;
 
 const movimientos = [
   {
-    concepto: "Nómina",
+    concepto: 'Nómina',
     cantidad: 1200,
-    tipo: "ingreso",
+    tipo: 'ingreso',
   },
   {
-    concepto: "Alquiler",
+    concepto: 'Alquiler',
     cantidad: 650,
-    tipo: "gasto",
+    tipo: 'gasto',
   },
   {
-    concepto: "Supermercado",
+    concepto: 'Supermercado',
     cantidad: 85,
-    tipo: "gasto",
+    tipo: 'gasto',
   },
   {
-    concepto: "Clase particular",
+    concepto: 'Clase particular',
     cantidad: 40,
-    tipo: "ingreso",
+    tipo: 'ingreso',
   },
-]
+];
 
-const saldoPantalla = document.querySelector("#saldo-pantalla")
-const mensajeEstado = document.querySelector("#mensaje-estado")
-const listaMovimientos = document.querySelector("#lista-movimientos")
-const totalGastado = document.querySelector("#total-gastado")
+const saldoPantalla = document.querySelector('#saldo-pantalla');
+const mensajeEstado = document.querySelector('#mensaje-estado');
+const listaMovimientos = document.querySelector('#lista-movimientos');
+const totalGastado = document.querySelector('#total-gastado');
 
-const inputConcepto = document.querySelector("#input-concepto")
-const inputCantidad = document.querySelector("#input-cantidad")
-const btnGasto = document.querySelector("#btn-gasto")
-const btnIngreso = document.querySelector("#btn-ingreso")
+const inputConcepto = document.querySelector('#input-concepto');
+const inputCantidad = document.querySelector('#input-cantidad');
+const btnGasto = document.querySelector('#btn-gasto');
+const btnIngreso = document.querySelector('#btn-ingreso');
 
-const btnTodosGastos = document.querySelector("#btn-todos")
-const btnSoloGastos = document.querySelector("#btn-solo-gastos")
-const btnSoloIngresos = document.querySelector("#btn-solo-ingresos")
+const btnTodosGastos = document.querySelector('#btn-todos');
+const btnSoloGastos = document.querySelector('#btn-solo-gastos');
+const btnSoloIngresos = document.querySelector('#btn-solo-ingresos');
 
 const actualizarSaldo = () => {
-  saldoPantalla.textContent = `${saldo}€`
+  saldoPantalla.textContent = `${saldo}€`;
 
   if (saldo > 500) {
-    mensajeEstado.textContent = "Vas muy bien este mes"
+    mensajeEstado.textContent = 'Vas muy bien este mes';
   } else if (saldo >= 100) {
-    mensajeEstado.textContent = "Ojo, queda poco margen"
+    mensajeEstado.textContent = 'Ojo, queda poco margen';
   } else {
-    mensajeEstado.textContent = "Alerta roja, ¡toca ahorrar!"
+    mensajeEstado.textContent = 'Alerta roja, ¡toca ahorrar!';
   }
 
   // if (saldo >= 100) {
@@ -55,10 +55,10 @@ const actualizarSaldo = () => {
   // } else {
   //   mensajeEstado.textContent = "🚨 ¡Alerta roja! Toca ahorrar"
   // }
-}
+};
 
 const mostrarMovimientos = (lista) => {
-  listaMovimientos.innerHTML = ""
+  listaMovimientos.innerHTML = '';
 
   // listaMovimientos.replaceChildren() forma moderna de limpiar
 
@@ -83,25 +83,27 @@ const mostrarMovimientos = (lista) => {
   // }
 
   lista.forEach((movimiento) => {
-    const li = document.createElement("li")
-    const signo = movimiento.tipo === "ingreso" ? "+" : "-"
+    const li = document.createElement('li');
+    const signo = movimiento.tipo === 'ingreso' ? '+' : '-';
 
     li.innerHTML = `
      <span>${movimiento.concepto}</span>
      <span class="${movimiento.tipo}">${signo}${movimiento.cantidad} €</span>
-    `
+    `;
 
-    listaMovimientos.appendChild(li)
-  })
-}
+    listaMovimientos.appendChild(li);
+  });
+};
 
 const calcularGastosTotales = () => {
-  const gastos = movimientos.filter((movimiento) => movimiento.tipo === "gasto")
+  const gastos = movimientos.filter(
+    (movimiento) => movimiento.tipo === 'gasto',
+  );
 
   const totalGastos = gastos.reduce(
     (suma, movimiento) => suma + movimiento.cantidad,
     0,
-  )
+  );
 
   // let totalGastos = 0
   // for (let i = 0; i < gastos.length; i++) {
@@ -109,37 +111,37 @@ const calcularGastosTotales = () => {
   //   totalGastos += gastos[i].cantidad
   // }
 
-  totalGastado.textContent = `${totalGastos}€`
-}
+  totalGastado.textContent = `${totalGastos}€`;
+};
 
 const registrarMovimiento = (tipo) => {
-  const concepto = inputConcepto.value
-  const cantidad = Number(inputCantidad.value)
+  const concepto = inputConcepto.value;
+  const cantidad = Number(inputCantidad.value);
 
-  if (concepto === "" || cantidad <= 0) {
-    alert("Escribe un concepto y una cantidad válida")
-    return
+  if (concepto === '' || cantidad <= 0) {
+    alert('Escribe un concepto y una cantidad válida');
+    return;
   }
 
   movimientos.push({
     concepto: concepto,
     cantidad: cantidad,
     tipo: tipo,
-  })
+  });
 
-  if (tipo === "gasto") {
-    saldo -= cantidad
-    calcularGastosTotales()
+  if (tipo === 'gasto') {
+    saldo -= cantidad;
+    calcularGastosTotales();
   } else {
-    saldo += cantidad
+    saldo += cantidad;
   }
 
-  inputConcepto.value = ""
-  inputCantidad.value = ""
+  inputConcepto.value = '';
+  inputCantidad.value = '';
 
-  actualizarSaldo()
-  mostrarMovimientos(movimientos)
-}
+  actualizarSaldo();
+  mostrarMovimientos(movimientos);
+};
 
 // btnGasto.addEventListener("click", () => {
 //   const concepto = inputConcepto.value
@@ -164,7 +166,7 @@ const registrarMovimiento = (tipo) => {
 //   calcularGastosTotales()
 // })
 
-btnGasto.addEventListener("click", () => registrarMovimiento("gasto"))
+btnGasto.addEventListener('click', () => registrarMovimiento('gasto'));
 
 // btnIngreso.addEventListener("click", () => {
 //   const concepto = inputConcepto.value
@@ -189,24 +191,25 @@ btnGasto.addEventListener("click", () => registrarMovimiento("gasto"))
 //   mostrarMovimientos(movimientos)
 // })
 
-btnIngreso.addEventListener("click", () => registrarMovimiento("ingreso"))
+btnIngreso.addEventListener('click', () => registrarMovimiento('ingreso'));
 
-btnTodosGastos.addEventListener("click", () => {
-  mostrarMovimientos(movimientos)
-})
+btnTodosGastos.addEventListener('click', () => {
+  mostrarMovimientos(movimientos);
+});
 
-btnSoloGastos.addEventListener("click", () => {
-  const gastos = movimientos.filter((movimiento) => movimiento.tipo === "gasto")
-  mostrarMovimientos(gastos)
-})
+btnSoloGastos.addEventListener('click', () => {
+  const gastos = movimientos.filter(
+    (movimiento) => movimiento.tipo === 'gasto',
+  );
+  mostrarMovimientos(gastos);
+});
 
-btnSoloIngresos.addEventListener("click", () => {
+btnSoloIngresos.addEventListener('click', () => {
   const ingresos = movimientos.filter(
-    (movimiento) => movimiento.tipo === "ingreso",
-  )
-  mostrarMovimientos(ingresos)
-})
-
-actualizarSaldo()
-mostrarMovimientos(movimientos)
-calcularGastosTotales()
+    (movimiento) => movimiento.tipo === 'ingreso',
+  );
+  mostrarMovimientos(ingresos);
+});
+actualizarSaldo();
+mostrarMovimientos(movimientos);
+calcularGastosTotales();
